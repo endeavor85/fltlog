@@ -15,15 +15,15 @@ Make a copy of `env-example.ts` named `env.ts`.  This is used in the Typescript 
 
 ## InfluxDB API token
 
-Grafana and NodeJS require an API token from InfluxDB in order to access the Influx bucket.  Do this via the locally running influx
+Grafana and NodeJS require an API token from InfluxDB in order to access the Influx bucket.  Do this via the locally running influx client in the browser at [`localhost:8086`](localhost:8086).  Login with the credentials specified in `.env` then navigate to **Data**, then select **API Tokens**.  Generate a new API token and give read/write permissions to the bucket specified in `env.ts`
 
 ## Raw CSV files
 
-Suffix meanings (presumably):
+Each fltlog CSV file has a suffix of either `P`, `E`, or, `F`.  Here's what I think they mean:
 
-- `P` - powered (but engine never run)
+- `P` - powered (power was applied, logs were generated, but the engine never run)
 - `E` - engine run (but never in flight)
-- `F` - flight
+- `F` - flight occurred
 
 ## Data cleanup
 
