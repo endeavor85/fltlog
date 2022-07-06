@@ -1,0 +1,831 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "grafana",
+            "uid": "-- Grafana --"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 1,
+    "links": [],
+    "liveNow": false,
+    "panels": [
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "fillOpacity": 80,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineWidth": 1,
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 9,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 10,
+        "options": {
+          "barRadius": 0,
+          "barWidth": 0.97,
+          "groupWidth": 0.7,
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "orientation": "auto",
+          "showValue": "auto",
+          "stacking": "none",
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "xTickLabelRotation": 0,
+          "xTickLabelSpacing": 0
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"CHT-H:;***\")\r\n  |> aggregateWindow(every: 6mo, fn: max, createEmpty: false)",
+            "refId": "A"
+          }
+        ],
+        "title": "Panel Title",
+        "type": "barchart"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 5,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"OIL T;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          }
+        ],
+        "title": "Oil Temp.",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 19
+        },
+        "id": 11,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"EST  TOTAL;GAL\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          }
+        ],
+        "title": "Gallons",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 29
+        },
+        "id": 7,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"FLOW;GPH\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          }
+        ],
+        "title": "Fuel Flow",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "Fuel Flow"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "flowgpm"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 39
+        },
+        "id": 6,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"CHT1;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"CHT2;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"CHT3;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"CHT4;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "D"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"FLOW;GPH\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "Fuel Flow"
+          }
+        ],
+        "title": "CHT",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byFrameRefID",
+                "options": "Fuel Flow"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "flowgpm"
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 10,
+          "w": 24,
+          "x": 0,
+          "y": 49
+        },
+        "id": 8,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"EGT1;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"EGT2;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "B"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"EGT3;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "C"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"EGT4;*F\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")",
+            "refId": "D"
+          },
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "hide": false,
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"FLOW;GPH\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "Fuel Flow"
+          }
+        ],
+        "title": "EGT",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 12,
+          "w": 24,
+          "x": 0,
+          "y": 59
+        },
+        "id": 4,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"OIL P;PSI\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          }
+        ],
+        "title": "Oil Press.",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "NjS4Ni37z"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "drawStyle": "line",
+              "fillOpacity": 0,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 13,
+          "w": 24,
+          "x": 0,
+          "y": 71
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom"
+          },
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          }
+        },
+        "targets": [
+          {
+            "datasource": {
+              "type": "influxdb",
+              "uid": "NjS4Ni37z"
+            },
+            "query": "from(bucket: v.bucket)\r\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\r\n  |> filter(fn: (r) => r[\"_field\"] == \"RPM;***\")\r\n  |> aggregateWindow(every: v.windowPeriod, fn: mean, createEmpty: false)\r\n  |> yield(name: \"mean\")\r\n",
+            "refId": "A"
+          }
+        ],
+        "title": "RPM",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": false,
+    "schemaVersion": 36,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": []
+    },
+    "time": {
+      "from": "2022-06-14T20:28:03.725Z",
+      "to": "2022-06-14T21:28:41.308Z"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "Flight Log Dashboard",
+    "uid": "rNrPbf37k",
+    "version": 7,
+    "weekStart": ""
+  }
